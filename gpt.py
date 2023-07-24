@@ -1,0 +1,21 @@
+from transformers import GPT2Tokenizer, GPT2LMHeadModel
+
+# Load pre-trained GPT-2 tokenizer and model
+model_name = "gpt2"
+tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+model = GPT2LMHeadModel.from_pretrained(model_name)
+
+# Prompt for text generation
+prompt = "Once upon a time in a land far, far away"
+
+# Tokenize the input prompt
+input_ids = tokenizer.encode(prompt, return_tensors="pt")
+
+# Generate text using the model
+output = model.generate(input_ids, max_length=100, num_return_sequences=1, pad_token_id=tokenizer.eos_token_id)
+
+# Decode the generated output
+generated_text = tokenizer.decode(output[0], skip_special_tokens=True)
+
+print("Generated Text:")
+print(generated_text)
